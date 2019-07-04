@@ -110,7 +110,7 @@ As we have already seen in the overview,first we have to encode the graph and th
 the graph.
 <h4>Graph Encoder:</h4>
 
-(i) We encode the latent representation of G by a graph message passing network
+(i) We encode the latent representation of G by a graph message passing network<br>
 (ii)Each vertex v has a feature vector xv indicating the atom type, valence, and other properties. Similarly, each edge (u, v) ∈ E has a 
 feature vector xuv indicating its bond type, and two hidden vectors νuv and νvu denoting the message from u to v and vice versa.
 
@@ -161,13 +161,13 @@ graph contain information that which message is in the invert direction.
                 mess_graph[mid2].append(mid1)
 ```
 
-(ii)In the first bottom-up phase, messages are initiated from the leaf nodes and propagated iteratively towards root.
+(ii)In the first bottom-up phase, messages are initiated from the leaf nodes and propagated iteratively towards root.<br>
 (iii)In the top-down phase, messages are propagated from the root to all the leaf nodes.
 
 <h4>Tree Decoder:</h4>
 We decode a junction tree T from its encoding zT with a tree structured decoder.Our tree decoder traverses the entire tree from the root,
 and generates nodes in their depth-first order.
-{%include image.html url="\assets\img\jvae_2.png" description="Tree Decoding Process" %}
+<center>{%include image.html url="\assets\img\jvae_2.png" description="Tree Decoding Process" %}</center>
 
 For every visited node, the decoder first makes a topological prediction,whether this node has children to be generated. When a new child 
 node is created, we predict its label and recurse this process.The decoder backtracks when a node has no more children to generate.Here we 
@@ -175,10 +175,10 @@ decode our tree and assemble the nodes in depth first order.
 
 <h4>Graph Decoder:</h4>
 (i) The final step of our model is to reproduce a molecular graph G that underlies the predicted junction tree T.
-{%include image.html url="\assets\img\jvae_3.png" %}
+<center>{%include image.html url="\assets\img\jvae_3.png" %}</center>
 
-(ii)We enumerate different combinations between red cluster C and its neighbors. Crossed arrows indicate combinations that lead to chemically infeasible molecules.
-(iii) Rank subgraphs at each node. The final graph is decoded by putting together all the predicted subgraphs.
+(ii)We enumerate different combinations between red cluster C and its neighbors. Crossed arrows indicate combinations that lead to chemically infeasible molecules.<br>
+(iii) Rank subgraphs at each node. The final graph is decoded by putting together all the predicted subgraphs.<br>
 
 After training is done, save the model using torch.save().
 
