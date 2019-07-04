@@ -9,7 +9,7 @@ mathjax: True
 <h2>Introduction</h2>
 We attempt to automate the design of molecules.This task involves continuous embedding and generation of molecular graphs.
 
-We generate the molecular graphs.Our junction tree variational autoencoder generates molecular graphs in two phases:<br>
+Our junction tree variational autoencoder generates molecular graphs in two phases:<br>
 (i)First generating a tree-structured scaffold over chemical substructures<br>
 (ii)Combining them into a molecule with a graph message passing network.
 
