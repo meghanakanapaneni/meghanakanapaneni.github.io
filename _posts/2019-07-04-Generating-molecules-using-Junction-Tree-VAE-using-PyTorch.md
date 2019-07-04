@@ -26,7 +26,7 @@ of molecules.
 (i)Import the text file into our code.
 
 ```python
-with open('train1.txt') as f:
+with open('train.txt') as f:
     data = [line.strip("\r\n ").split()[0] for line in f]
 ```
 
