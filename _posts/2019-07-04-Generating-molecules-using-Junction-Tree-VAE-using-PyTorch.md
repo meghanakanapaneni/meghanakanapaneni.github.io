@@ -14,9 +14,9 @@ We generate the molecular graphs.Our junction tree variational autoencoder gener
 (ii)Combining them into a molecule with a graph message passing network.
 
 <h2>Overview</h2>
-A molecular graph G is first decomposed into its junction tree TG, where each coloured node in the tree represents a substructure in the 
-molecule.We then encode both the tree and graph into their latent embeddings zT and zG. To decode the molecule, we first reconstruct junction
-tree from zT , and then assemble nodes in the tree back to the original molecule.
+A molecular graph G is first decomposed into its junction tree T<sub>G</sub>, where each coloured node in the tree represents a substructure in the 
+molecule.We then encode both the tree and graph into their latent embeddings z<sub>T</sub> and z<sub>G</sub>. To decode the molecule, we first reconstruct junction
+tree from z<sub>T</sub> , and then assemble nodes in the tree back to the original molecule.
 <center>{%include image.html url="\assets\img\jvae_1.png" %}</center>
 <h2>Implementation</h2>
 I'll be showing you how I built my Junction tree VAE in Pytorch. The dataset I used is ZINC dataset.The dataset contains smiles representation 
