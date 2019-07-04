@@ -191,7 +191,7 @@ This is how we sample the new molecules.First load the saved model and the gener
         print(model.sample_prior())
 ```
 <h3>Results</h3>
-Here are the some samples I generated.
+Here are some samples I generated.
 ```python
     NCNCN
     O=C(CCNC(=O)c1ccccc1)Nc1cc(Cl)cc(Cl)c1
