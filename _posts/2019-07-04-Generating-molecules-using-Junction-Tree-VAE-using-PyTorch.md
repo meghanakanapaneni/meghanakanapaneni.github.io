@@ -106,3 +106,6 @@ class JTNNVAE(nn.Module):
         self.G_mean = nn.Linear(int(hidden_size), int(latent_size))
         self.G_var = nn.Linear(int(hidden_size), int(latent_size))        
 ```
+<h3>III.Training</h3>
+As we have already seen in the overview,first we have to encode the graph and then tree and then decode the tree and then finally decode 
+the graph.
