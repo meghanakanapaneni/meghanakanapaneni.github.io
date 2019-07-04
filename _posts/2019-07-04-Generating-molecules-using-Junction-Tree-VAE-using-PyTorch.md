@@ -166,7 +166,7 @@ graph contain information that which message is in the invert direction.
 
 <h4>Tree Decoder:</h4>
 We decode a junction tree T from its encoding zT with a tree structured decoder.Our tree decoder traverses the entire tree from the root,
-and generates nodes in their depth-first order.
+and generates nodes in their depth-first order.<br>
 <center>{%include image.html url="\assets\img\jvae_2.png" description="Tree Decoding Process" %}</center>
 
 For every visited node, the decoder first makes a topological prediction,whether this node has children to be generated. When a new child 
@@ -174,7 +174,7 @@ node is created, we predict its label and recurse this process.The decoder backt
 decode our tree and assemble the nodes in depth first order.
 
 <h4>Graph Decoder:</h4>
-(i) The final step of our model is to reproduce a molecular graph G that underlies the predicted junction tree T.
+(i) The final step of our model is to reproduce a molecular graph G that underlies the predicted junction tree T.<br>
 <center>{%include image.html url="\assets\img\jvae_3.png" %}</center>
 
 (ii)We enumerate different combinations between red cluster C and its neighbors. Crossed arrows indicate combinations that lead to chemically infeasible molecules.<br>
@@ -185,24 +185,24 @@ After training is done, save the model using torch.save().
 <h3>IV.Generating sample molecules</h3>
 This is how we sample the new molecules.First load the saved model and the generate the new text using sample_prior() function.
 ```python
-model.load_state_dict(torch.load(path))
-torch.manual_seed(0)
-for i in range(10):
-    print(model.sample_prior())
+    model.load_state_dict(torch.load(path))
+    torch.manual_seed(0)
+    for i in range(10):
+        print(model.sample_prior())
 ```
 <h3>Results</h3>
 Here are the some molecules I generated.
 ```python
-NCNCN
-O=C(CCNC(=O)c1ccccc1)Nc1cc(Cl)cc(Cl)c1
-c1ccccc1
-NC(N)N
-c1ccsc1
-CC(C)C
-C1CC1
-CC(C)C
-O=C=O
-CC(=O)C(C)C
+    NCNCN
+    O=C(CCNC(=O)c1ccccc1)Nc1cc(Cl)cc(Cl)c1
+    c1ccccc1
+    NC(N)N
+    c1ccsc1
+    CC(C)C
+    C1CC1
+    CC(C)C
+    O=C=O
+    CC(=O)C(C)C
 ```
 Thanks for reading!!! Happy learning! :)
 
