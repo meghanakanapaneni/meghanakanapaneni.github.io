@@ -111,8 +111,8 @@ the graph.
 <h4>Graph Encoder:</h4>
 
 (i) We encode the latent representation of G by a graph message passing network<br>
-(ii)Each vertex v has a feature vector xv indicating the atom type, valence, and other properties. Similarly, each edge (u, v) ∈ E has a 
-feature vector xuv indicating its bond type, and two hidden vectors νuv and νvu denoting the message from u to v and vice versa.
+(ii)Each vertex v has a feature vector x<sub>v</sub> indicating the atom type, valence, and other properties. Similarly, each edge (u, v) ∈ E has a 
+feature vector x<sub>uv</sub> indicating its bond type, and two hidden vectors ν<sub>uv</sub> and ν<sub>vu</sub> denoting the message from u to v and vice versa.
 
 Here a1,a2 are two atoms having bond.We get atom features from atom_features1.We also get bond features from bond_features1 function and we
 concatenate them to existing dimension of atom.
