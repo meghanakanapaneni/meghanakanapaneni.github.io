@@ -88,7 +88,6 @@ class JTNNVAE(nn.Module):
     def __init__(self, vocab, hidden_size, latent_size, depthT, depthG):
         super(JTNNVAE, self).__init__()
         self.vocab = vocab
-        #print(int(vocab.size()))
         self.hidden_size = int(hidden_size)
         self.latent_size = latent_size = latent_size / 2 #Tree and Mol has two vectors
         self.latent_size=int(self.latent_size)
