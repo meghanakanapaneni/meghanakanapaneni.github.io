@@ -145,7 +145,7 @@ concatenate them to existing dimension of atom.
 (iii)After T steps of iteration, we aggregate those messages as the latent vector of each vertex.
 
 <h4>Tree Encoder:</h4>
-(i) We similarly encode TG with a tree message passing network.
+(i) We similarly encode T<sub>G</sub> with a tree message passing network.
 
 We construct a node graph and message graph.Node graph contains the information that what are the messages connected to a index and message
 graph contain information that which message is in the invert direction.
@@ -165,7 +165,7 @@ graph contain information that which message is in the invert direction.
 (iii)In the top-down phase, messages are propagated from the root to all the leaf nodes.
 
 <h4>Tree Decoder:</h4>
-We decode a junction tree T from its encoding zT with a tree structured decoder.Our tree decoder traverses the entire tree from the root,
+We decode a junction tree T from its encoding z<sub>T</sub> with a tree structured decoder.Our tree decoder traverses the entire tree from the root,
 and generates nodes in their depth-first order.<br>
 <center>{%include image.html url="\assets\img\jvae_2.png" description="Tree Decoding Process" %}</center>
 
@@ -191,7 +191,7 @@ This is how we sample the new molecules.First load the saved model and the gener
         print(model.sample_prior())
 ```
 <h3>Results</h3>
-Here are the some molecules I generated.
+Here are the some samples I generated.
 ```python
     NCNCN
     O=C(CCNC(=O)c1ccccc1)Nc1cc(Cl)cc(Cl)c1
