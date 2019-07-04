@@ -17,3 +17,4 @@ ii)Combining them into a molecule with a graph message passing network.
 A molecular graph G is first decomposed into its junction tree TG, where each coloured node in the tree represents a substructure in the 
 molecule.We then encode both the tree and graph into their latent embeddings zT and zG. To decode the molecule, we first reconstruct junction
 tree from zT , and then assemble nodes in the tree back to the original molecule.
+{%include image.html url="\assets\img\jvae_1.png" %}
