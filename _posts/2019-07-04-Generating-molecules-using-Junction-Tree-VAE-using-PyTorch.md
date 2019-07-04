@@ -67,7 +67,7 @@ intersection atoms in the neighbourhood list of the cluster and if intersection 
 Next, a cluster graph is constructed by adding edges between all intersecting clusters. Finally, we select one of its spanning trees as the 
 junction tree of G.
 
-Here csr_matrix is creating sparse matrix with given number of rows and columns and minumum_spanning tree is an inbuilt from scipy module to 
+Here csr_matrix is creating sparse matrix with given number of rows and columns and minumum_spanning_tree is an inbuilt from scipy module to 
 get the minimum spanning tree.
 
 ```python
