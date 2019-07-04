@@ -79,3 +79,30 @@ get the minimum spanning tree.
 
 Now,after collecting cliques and edges from tree decomposition,we construct molecular tree using those cliques and edges.
 
+<h3>II.Defining the model</h3>
+Here we define our model as JTNNVAE.
+
+```python
+class JTNNVAE(nn.Module):
+
+    def __init__(self, vocab, hidden_size, latent_size, depthT, depthG):
+        super(JTNNVAE, self).__init__()
+        self.vocab = vocab
+        #print(int(vocab.size()))
+        self.hidden_size = int(hidden_size)
+        self.latent_size = latent_size = latent_size / 2 #Tree and Mol has two vectors
+        self.latent_size=int(self.latent_size)
+        self.jtnn = JTNNEncoder(int(hidden_size),int(depthT), nn.Embedding(780,450))
+        self.decoder = JTNNDecoder(vocab, int(hidden_size), int(latent_size), nn.Embedding(780,450))
+
+        self.jtmpn = JTMPN(int(hidden_size), int(depthG))
+        self.mpn = MPN(int(hidden_size), int(depthG))
+
+        self.A_assm = nn.Linear(int(latent_size), int(hidden_size), bias=False)
+        self.assm_loss = nn.CrossEntropyLoss(size_average=False)
+
+        self.T_mean = nn.Linear(int(hidden_size), int(latent_size))
+        self.T_var = nn.Linear(int(hidden_size), int(latent_size))
+        self.G_mean = nn.Linear(int(hidden_size), int(latent_size))
+        self.G_var = nn.Linear(int(hidden_size), int(latent_size))        
+```
