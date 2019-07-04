@@ -109,3 +109,103 @@ class JTNNVAE(nn.Module):
 <h3>III.Training</h3>
 As we have already seen in the overview,first we have to encode the graph and then tree and then decode the tree and then finally decode 
 the graph.
+<h4>Graph Encoder:</h4>
+
+(i) We encode the latent representation of G by a graph message passing network
+(ii)Each vertex v has a feature vector xv indicating the atom type, valence, and other properties. Similarly, each edge (u, v) ∈ E has a 
+feature vector xuv indicating its bond type, and two hidden vectors νuv and νvu denoting the message from u to v and vice versa.
+
+Here a1,a2 are two atoms having bond.We get atom features from atom_features1.We also get bond features from bond_features1 function and we
+concatenate them to existing dimension of atom.
+
+```python  
+            for atom in mol.GetAtoms():
+                fatoms.append( atom_features1(atom) )
+                in_bonds.append([])
+
+            for bond in mol.GetBonds():
+                a1 = bond.GetBeginAtom()
+                a2 = bond.GetEndAtom()
+                x = a1.GetIdx() + total_atoms
+                y = a2.GetIdx() + total_atoms
+
+                b = len(all_bonds) 
+                all_bonds.append((x,y))
+                fbonds.append( torch.cat([fatoms[x], bond_features1(bond)], 0) )
+                in_bonds[y].append(b)
+
+                b = len(all_bonds)
+                all_bonds.append((y,x))
+                fbonds.append( torch.cat([fatoms[y], bond_features1(bond)], 0) )
+                in_bonds[x].append(b)
+            
+            scope.append((total_atoms,n_atoms))
+            total_atoms += n_atoms
+```
+
+(iii)After T steps of iteration, we aggregate those messages as the latent vector of each vertex.
+
+<h4>Tree Encoder:</h4>
+(i) We similarly encode TG with a tree message passing network.
+
+We construct a node graph and message graph.Node graph contains the information that what are the messages connected to a index and message
+graph contain information that which message is in the invert direction.
+
+```python
+        for x,y in messages[1:]:
+            mid1 = mess_dict[(x.idx,y.idx)]
+            fmess[mid1] = x.idx 
+            node_graph[y.idx].append(mid1)
+            for z in y.neighbors:
+                if z.idx == x.idx: continue
+                mid2 = mess_dict[(y.idx,z.idx)]
+                mess_graph[mid2].append(mid1)
+```
+
+(ii)In the first bottom-up phase, messages are initiated from the leaf nodes and propagated iteratively towards root.
+(iii)In the top-down phase, messages are propagated from the root to all the leaf nodes.
+
+<h4>Tree Decoder:</h4>
+We decode a junction tree T from its encoding zT with a tree structured decoder.Our tree decoder traverses the entire tree from the root,
+and generates nodes in their depth-first order.
+{%include image.html url="\assets\img\jvae_2.png" description="Tree Decoding Process" %}
+
+For every visited node, the decoder first makes a topological prediction,whether this node has children to be generated. When a new child 
+node is created, we predict its label and recurse this process.The decoder backtracks when a node has no more children to generate.Here we 
+decode our tree and assemble the nodes in depth first order.
+
+<h4>Graph Decoder:</h4>
+(i) The final step of our model is to reproduce a molecular graph G that underlies the predicted junction tree T.
+{%include image.html url="\assets\img\jvae_3.png" %}
+
+(ii)We enumerate different combinations between red cluster C and its neighbors. Crossed arrows indicate combinations that lead to chemically infeasible molecules.
+(iii) Rank subgraphs at each node. The final graph is decoded by putting together all the predicted subgraphs.
+
+After training is done, save the model using torch.save().
+
+<h3>IV.Generating sample molecules</h3>
+This is how we sample the new molecules.First load the saved model and the generate the new text using sample_prior() function.
+```python
+model.load_state_dict(torch.load(path))
+torch.manual_seed(0)
+for i in range(10):
+    print(model.sample_prior())
+```
+<h3>Results</h3>
+Here are the some molecules I generated.
+```python
+NCNCN
+O=C(CCNC(=O)c1ccccc1)Nc1cc(Cl)cc(Cl)c1
+c1ccccc1
+NC(N)N
+c1ccsc1
+CC(C)C
+C1CC1
+CC(C)C
+O=C=O
+CC(=O)C(C)C
+```
+Thanks for reading!!! Happy learning! :)
+
+
+
