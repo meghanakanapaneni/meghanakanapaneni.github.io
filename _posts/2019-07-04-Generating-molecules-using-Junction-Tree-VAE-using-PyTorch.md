@@ -18,7 +18,7 @@ A molecular graph G is first decomposed into its junction tree T<sub>G</sub>, wh
 tree from z<sub>T</sub> , and then assemble nodes in the tree back to the original molecule.
 <center>{%include image.html url="\assets\img\jvae_1.png" %}</center>
 <h2>Implementation</h2>
-I'll be showing you how I built my Junction tree VAE in Pytorch. The dataset I used is ZINC dataset.The dataset contains smiles representation of molecules.I have used rdkit to process the molecules.
+I'll be showing you how I built my Junction tree VAE in Pytorch. The dataset I used is ZINC dataset.The dataset contains smiles representation of molecules.I have used RDKit to process the molecules.
 <h3>I.Data Preprocessing</h3>
 (i)Import the text file into our code.
 
